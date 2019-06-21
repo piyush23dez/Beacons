@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             if let vc = topController as? ViewController {
-                vc.initBeaconMonitor()
+                vc.startBeaconMonitor()
             }
             
             // topController should now be your topmost view controller
@@ -44,6 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            
+            if let vc = topController as? ViewController {
+                vc.stopBeaconSpotting()
+            }
+        }
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
