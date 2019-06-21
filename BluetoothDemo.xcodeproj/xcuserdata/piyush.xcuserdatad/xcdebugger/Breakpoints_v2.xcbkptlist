@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BluetoothDemo/ViewController.swift"
-            timestampString = "582764106.257308"
+            timestampString = "582793575.478762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "locationManager(_:didDetermineState:for:)"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "locationManager(_:didRangeBeacons:in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BluetoothDemo/ViewController.swift"
-            timestampString = "582764106.257745"
+            timestampString = "582793575.479064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "locationManager(_:didEnterRegion:)"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "locationManager(_:didExitRegion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

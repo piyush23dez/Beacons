@@ -62,27 +62,32 @@ class ViewController: UIViewController, CBPeripheralManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(button)
-        
         addBroadcastingButton()
-        //initPeripheralAdvertiser()
         
+        setupLocationManager()
+        setupPeripheralAdvertiser()
+        setupBeaconMonitoring()
+    }
+    
+    func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-
-        //montiring iBeacons range
-        initBeaconMonitor()
+    }
+    
+    func setupBeaconMonitoring() {
+        beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "com.2cloz.AXT45")
         beaconRegion.notifyOnEntry = true
         beaconRegion.notifyOnExit = true
         beaconRegion.notifyEntryStateOnDisplay = true
     }
     
     func initBeaconMonitor() {
-        beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "com.2cloz.AXT45")
+        switchMonitoringState()
     }
     
-    func initPeripheralAdvertiser() {
+    func setupPeripheralAdvertiser() {
         bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: .main)
     }
     
@@ -95,34 +100,33 @@ class ViewController: UIViewController, CBPeripheralManagerDelegate {
     
     @objc
     func switchMonitoringState() {
-        if !isSearchingForBeacons {
+        //if !isSearchingForBeacons {
             button.setTitle("Stop", for: .normal)
             button.backgroundColor = .darkGray
             
             locationManager.startMonitoring(for: beaconRegion)
             locationManager.startUpdatingLocation()
             print("monitoring beacons.....")
-        } else {
-            locationManager.stopMonitoring(for: beaconRegion)
-            locationManager.stopRangingBeacons(in: beaconRegion)
-            locationManager.stopUpdatingLocation()
+       // } else {
+            //locationManager.stopMonitoring(for: beaconRegion)
+            //locationManager.stopRangingBeacons(in: beaconRegion)
+            //locationManager.stopUpdatingLocation()
             
-            button.setTitle("Start", for: .normal)
-            button.backgroundColor = .blue
-            print("not monitoring beacons")
-            initPeripheralAdvertiser()
-        }
+            // button.setTitle("Start", for: .normal)
+            //button.backgroundColor = .blue
+       // }
         
-        isSearchingForBeacons = !isSearchingForBeacons
+       // isSearchingForBeacons = !isSearchingForBeacons
     }
     
     @objc
     func switchBroadcastingState() {
+
         if !isBroadcasting {
-            button.setTitle("Stop", for: .normal)
-            button.backgroundColor = .darkGray
-            
             if bluetoothPeripheralManager.state == CBManagerState.poweredOn {
+                button.setTitle("Stop", for: .normal)
+                button.backgroundColor = .darkGray
+                
                 //1.initialize the beacon region & start advertising the region.
                 let major: CLBeaconMajorValue = UInt16(100)
                 let minor: CLBeaconMinorValue = UInt16(50)
